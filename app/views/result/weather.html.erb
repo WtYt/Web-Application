@@ -1,0 +1,98 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Coordinates Search Result</h1>
+
+    <p>status = <%= @status %></p>
+    <div class="card mb-4">
+      <div class="card-header">
+        Location Information
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= @message %></p>
+        <p class="card-text"><strong>Coordinates:</strong> <%= @latitude %>, <%= @longitude %></p>
+      </div>
+    </div>
+    <%# グラフの描画 %> 
+    <h2 class="text-center my-4">Hourly Temperature Forecast</h2>
+
+    <div class="w-90 mx-auto">
+      <canvas id="temperatureChart"></canvas><%# グラフ用のcanvas %>
+    </div>
+
+    <script>
+      const temperatureData = <%= @weather_temp_h.to_json.html_safe %>;
+      const weatherData = <%= @weather_h.to_json.html_safe %>;
+    
+      const labels = Array.from({length: 24}, (_, i) => `${i}:00`);//横軸の設定
+    
+      const ctx = document.getElementById('temperatureChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line', //グラフの線の設定
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Temperature',
+            data: temperatureData,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1,
+            fill: false
+          }]
+        },
+        options: {//その他オプションの設定
+          responsive: true, //レスポンシブ
+          plugins: {
+            title: {
+              display: true,
+              text: 'Hourly Temperature Forecast'
+            },
+            tooltip: {//凡例の設定
+              callbacks: {
+                label: function(context) {
+                  let label = context.dataset.label || '';
+                  if (label) {
+                    label += ': ';
+                  }
+                  if (context.parsed.y !== null) {
+                    label += context.parsed.y + '°C';
+                  }
+                  return label;
+                },
+                afterLabel: function(context) {
+                  const index = context.dataIndex;
+                  return 'Weather: ' + weatherData[index];
+                }
+              }
+            }
+          },
+          scales: {// 軸ラベルの設定
+            x: {
+              title: {
+                display: true,
+                text: 'Time'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Temperature (°C)'
+              },
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    </script>
+    <%# 予報の地点の地図を表示 %>
+    <h2 class="mb-3">Map</h2>
+    <div class="ratio ratio-16x9">
+      <iframe
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAoXPg3qE3VhVEWXkZ3UdQX0QOlmMv714g&q=<%= @latitude %>,<%= @longitude %>&zoom=12"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+  <%= link_to 'Search Again', '/', class: 'btn btn-primary mt-4' %>
+</div>
+

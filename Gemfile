@@ -62,5 +62,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# manually added part from here
 gem "dartsass-rails"
 gem "bootstrap", "~> 5.3.3"
