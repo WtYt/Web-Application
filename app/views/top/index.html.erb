@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <h2 class="mt-4 mb-3">天気を知りたい場所を入力してください</h2>
+  <%= form_with url: '/result', method: :post, local: true, data: { turbo: false } do |form| %>
+    <div class="mb-3">
+      <%= form.label :place, 'Enter a place name:', class: 'form-label' %>
+      <%= form.text_field :place, class: 'form-control', placeholder: 'e.g., ディズニーランド' %>
+    </div>
+    <%= form.submit 'Search', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+

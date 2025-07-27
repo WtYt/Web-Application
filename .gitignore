@@ -83,3 +83,6 @@ yarn-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+*Zone.Identifier
+/app/assets/builds/*
+!/app/assets/builds/.keep
