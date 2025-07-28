@@ -1,7 +1,6 @@
 <div class="container mt-4">
   <h1 class="mb-4">Coordinates Search Result</h1>
 
-    <p>status = <%= @status %></p>
     <div class="card mb-4">
       <div class="card-header">
         Location Information
@@ -14,10 +13,8 @@
     <%# グラフの描画 %> 
     <h2 class="text-center my-4">Hourly Temperature Forecast</h2>
 
-    <div class="w-90 mx-auto">
-      <canvas id="temperatureChart"></canvas><%# グラフ用のcanvas %>
-    </div>
-
+    <canvas id="temperatureChart"></canvas><%# グラフ用のcanvas %>
+ 
     <script>
       const temperatureData = <%= @weather_temp_h.to_json.html_safe %>;
       const weatherData = <%= @weather_h.to_json.html_safe %>;

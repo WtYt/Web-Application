@@ -1,3 +1,4 @@
+module MyOpenMeteoFunctions
 require 'net/http'
 require 'json'
 
@@ -76,6 +77,7 @@ def code2Weather(code)
   when 99 then "Thunderstorm with heavy hail"
   else "undefined"
   end
+end
 end
 
 # module test

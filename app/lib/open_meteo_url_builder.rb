@@ -1,7 +1,10 @@
+module OpenMeteoUrlBuilder
 require 'net/http'
 require 'json'
-require_relative 'coordinates_searcher'
-require_relative 'my_open_meteo_functions'
+include CoordinatesSearcher
+include MyOpenMeteoFunctions
+#require_relative 'coordinates_searcher'
+#require_relative 'my_open_meteo_functions'
 
 # Open Meteo URL builder. for more infomation, see https://open-meteo.com/en/docs
 
@@ -64,6 +67,7 @@ class MeteoURLBuilder
     url += "&forecast_days=#{@forecast_days}"
     url
   end
+end
 end
 
 # module test
