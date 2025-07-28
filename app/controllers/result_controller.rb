@@ -1,5 +1,9 @@
 class ResultController < ApplicationController
   attr_accessor :latitude, :longitude, :place, :message, :status, :weather, :weather_code, :weather_code_h, :weather_temp_h
+  
+  include CoordinatesSearcher
+  include MyOpenMeteoFunctions
+  include OpenMeteoUrlBuilder
 
   # page renderer
   def weather
@@ -15,9 +19,9 @@ class ResultController < ApplicationController
   end
 
   def post
-    require_relative "../lib/open_meteo_url_builder"
-    require_relative "../lib/my_open_meteo_functions"
-    require_relative "../lib/coordinates_searcher"
+    #require_relative "../lib/open_meteo_url_builder"
+    #require_relative "../lib/my_open_meteo_functions"
+    #require_relative "../lib/coordinates_searcher"
     require 'net/http'
     require 'json'
 
